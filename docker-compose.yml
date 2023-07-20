@@ -4,4 +4,21 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    
+  database:
+    build: database
+    image: postgres:alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s

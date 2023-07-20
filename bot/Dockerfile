@@ -4,7 +4,7 @@ RUN mkdir -p /usr/src/bot
 WORKDIR /usr/src/bot
 
 RUN pip3 install --upgrade pip
-RUN pip3 install pyrogram tgcrypto uvloop
+RUN pip3 install pyrogram tgcrypto uvloop asyncpg
 
 COPY . .
 
