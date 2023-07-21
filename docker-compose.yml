@@ -1,17 +1,13 @@
 services:
-  bot:
-    build: bot
-    restart: unless-stopped
-    env_file:
-      - .env
   database:
+    container_name: database
+    volumes:
+      - db-data:/var/lib/postgresql/data/
     build: database
     image: postgres:alpine
     restart: unless-stopped
     env_file:
       - .env
-    volumes:
-      - database-data:/var/lib/postgresql/data/
     healthcheck:
       test:
         [
@@ -22,3 +18,13 @@ services:
       timeout: 3s
       retries: 5
       start_period: 10s
+  bot:
+    container_name: bot
+    build: bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - database
+volumes:
+  db-data:

@@ -57,8 +57,12 @@ async def start(client: Client, message: Message) -> None:
     localization = await locale_load(message.from_user)
     await client.send_sticker(message.chat.id, "Static/sticker.webp")
     await client.send_message(message.chat.id, localization["hello-message"])
-    lang = lang_detection.detect(message.from_user.phone_number)
-    await db_interface.new_user(logger, message.from_user.id, lang)
+    
+    is_exist = await db_interface.check_user(message.from_user.id)
+    if not is_exist:
+        lang = lang_detection.detect(message.from_user.phone_number)
+        await db_interface.new_user(message.from_user.id, lang)
+
     logger.info(f"Greeting message was sent to @{message.from_user.username}")
 
 
