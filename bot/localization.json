@@ -1,8 +1,20 @@
 {
     "en": {
-        "hello-message": "🤖 **Thanks for using this bot!**\nControl panel is under this message:"
+        "inline-account": "👤 Account",
+        "inline-support": "🆘 Support",
+        "inline-price": "💳 Prices",
+        "inline-to-start": "⬅️ To start",
+        "inline-to-settings": "⚙️ Settings",
+        "start-message": "🤖 **Thanks for using this bot!**\nControl panel is under this message:",
+        "account-message": "**{username}'s account:**\n\n🌐 Lang {lang}\n🛒 Purchases {purchases}\n🕐 From {time}"
     },
     "ru": {
-        "hello-message": "🤖 **Спасибо, что используете этого бота!**\nПанель управления прямо под этим сообщением:"
+        "inline-account": "👤 Аккаунт",
+        "inline-support": "🆘 Поддержка",
+        "inline-price": "💳 Цены",
+        "inline-to-start": "⬅️ В начало",
+        "inline-to-settings": "⚙️ Настройки",
+        "start-message": "🤖 **Спасибо, что используете этого бота!**\nПанель управления прямо под этим сообщением:",
+        "account-message": "**{username} аккаунт:**\n\n🌐 Язык {lang}\n🛒 Покупки {purchases}\n🕐 Дата начала {time}"
     }
 }

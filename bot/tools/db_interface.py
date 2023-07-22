@@ -1,9 +1,13 @@
 from os import environ
 from datetime import datetime
+from datetime import date
 from threading import local
+import time
 
 import asyncpg
 import logging
+
+from pyrogram.raw.types import reaction_custom_emoji
 
 
 logging.basicConfig()
@@ -29,6 +33,26 @@ async def locale_get(user_id: int) -> str:
         case []:
             return ""
     return locale[0].get("lang")
+
+
+async def purchases_get(user_id: int) -> int:
+    conn = await db_connect()
+    purchases = await conn.fetch(f"SELECT purchases FROM users WHERE user_id='{user_id}'")
+    await conn.close()
+    match purchases:
+        case []:
+            return 0
+    return purchases[0].get("purchases")
+
+
+async def start_time_get(user_id: int) -> str:
+    conn = await db_connect()
+    timestamp = await conn.fetch(f"SELECT start_date FROM users WHERE user_id='{user_id}'")
+    await conn.close()
+    match timestamp:
+        case []:
+            return str(datetime.now().date())
+    return timestamp[0].get("start_date").date()
 
 
 async def new_user(user_id: int, lang: str) -> None:
