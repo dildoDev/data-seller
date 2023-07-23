@@ -6,6 +6,6 @@ CREATE TABLE users (
 );
 
 CREATE TABLE admins (
-    user_id numeric NOT NULL UNIQUE,
+    username varchar NOT NULL UNIQUE,
     position varchar
 );

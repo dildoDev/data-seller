@@ -1,13 +1,8 @@
 from os import environ
 from datetime import datetime
-from datetime import date
-from threading import local
-import time
 
 import asyncpg
 import logging
-
-from pyrogram.raw.types import reaction_custom_emoji
 
 
 logging.basicConfig()
@@ -70,3 +65,18 @@ async def check_user(user_id: int) -> bool:
         case []:
             return False
     return True
+
+
+async def change_lang(user_id: int, lang: str) -> None:
+    conn = await db_connect()
+    await conn.execute(f"UPDATE users SET lang='{lang}' WHERE user_id='{user_id}'")
+    await conn.close()
+    logger.info(f"User {user_id} changed language to {lang}")
+
+
+async def support_get() -> dict[str, str]:
+    conn = await db_connect()
+    rows = await conn.fetch("SELECT * FROM admins")
+    await conn.close()
+    admins = {admin.get("username"):admin.get("position") for admin in rows}
+    return admins
